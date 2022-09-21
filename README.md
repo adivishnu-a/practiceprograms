@@ -1,2 +1,2 @@
 # practiceprograms
-Programs that I wrote in the process of learning
+Programs that I've worked on in the process of learning Programming languages
