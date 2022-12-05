@@ -33,47 +33,50 @@ class product:public virtual Profit{
         double cost;
         double sell;
     public:
-        void cal()
-		{
-		    cost=percost*quan;
-            sell=persell*quan;
-            profit=profit+(sell-cost);
-		}
-        void file()
-        {
-            char file[20];
-            strcpy(file,id);
-            strcat(file,".txt");
-            ofstream f(file);
-            f<< "\n\t\t\tProduct Name : "<<name<< "\n\t\t\tProduct ID : "<<id<<"\n\t\t\tCost price of product : " <<percost<<"\n\t\t\tSelling price of product : "<<persell<<"\n\t\t\tQuantity : "<<quan<<"\n\t\t\tTotal cost: "<<cost<<"\n\t\t\tSell : "<<sell<<endl;
-            f.close();
-            ofstream p("Profits.txt");
-            p<<profit;
-            p.close();
-        }
-        void get()
-        {
-            int s;
-            cout<<"\n\t\t\tNumber of products to be added : ";
-            cin>>s;
-            for(int i=0;i<s;i++)
-            { 
-                cout<<endl;
-                cout<<"\t\t\tEnter product name :";
-                cin>>name;
-                cout<<"\t\t\tEnter product id : ";
-                cin>>id;
-                cout<<"\t\t\tEnter cost price of product : ";
-                cin>>percost;
-                cout<<"\t\t\tEnter selling price of product : ";
-                cin>>persell; 
-                cout<<"\t\t\tTotal products sold quantity : ";
-                cin>>quan;
-                cal();
-                file();
-            }
-        }
+        void cal();
+        void file();
+        void get();
 };
+void product::cal()
+{
+    cost=percost*quan;
+       sell=persell*quan;
+       profit=profit+(sell-cost);
+}
+void product::file()
+{
+    char file[20];
+    strcpy(file,id);
+    strcat(file,".txt");
+    ofstream f(file);
+    f<< "\n\t\t\tProduct Name : "<<name<< "\n\t\t\tProduct ID : "<<id<<"\n\t\t\tCost price of product : " <<percost<<"\n\t\t\tSelling price of product : "<<persell<<"\n\t\t\tQuantity : "<<quan<<"\n\t\t\tTotal cost: "<<cost<<"\n\t\t\tSell : "<<sell<<endl;
+    f.close();
+    ofstream p("Profits.txt");
+    p<<profit;
+    p.close();
+}
+void product::get()
+{
+    int s;
+    cout<<"\n\t\t\tNumber of products to be added : ";
+    cin>>s;
+    for(int i=0;i<s;i++)
+    { 
+        cout<<endl;
+        cout<<"\t\t\tEnter product name :";
+        cin>>name;
+        cout<<"\t\t\tEnter product id : ";
+        cin>>id;
+        cout<<"\t\t\tEnter cost price of product : ";
+        cin>>percost;
+        cout<<"\t\t\tEnter selling price of product : ";
+        cin>>persell; 
+        cout<<"\t\t\tTotal products sold quantity : ";
+        cin>>quan;
+        cal();
+        file();
+    }
+}
 
 class staff:public virtual Profit{
     protected:
@@ -82,121 +85,127 @@ class staff:public virtual Profit{
         char empid[10];
         int empquan;
     public:
-        void cal()
-        {
-		    profit=(profit-salary*empquan);
-        }
-        void file()
-        {
-            char file[20];
-            strcpy(file,empid);
-            strcat(file,".txt");
-            ofstream f(file);
-            f<< "\n\t\t\tNumber of working employees : "<<empquan<< "\n\t\t\tEmployee Salary : "<<salary<< "\n\t\t\tEmployee Name : "<<post<<"\n\t\t\tEmployee ID : "<<empid<<endl;
-            f.close();
-            ofstream p("Profits.txt");
-            p<<profit;
-            p.close();
-        }
-        void getstaff()
-        {
-            cout<<"\t\t\tEnter Salary : ";
-            cin>>salary;
-            cout<<"\t\t\tEnter Number of Employees : ";
-            cin>>empquan;
-            for(int i=0;i<empquan;i++)
-            {
-                cout<<endl;
-  	            cout<<"\t\t\tEnter Employee name : ";
-  	            cin>>post;
-                cout<<"\t\t\tEnter Employee ID : ";
-                cin>>empid;
-                cal();
-                file();
-            }
-        }
+        void cal();
+        void file();
+        void getstaff();
 };
+void staff::cal()
+{
+    profit=(profit-salary*empquan);
+}
+void staff::file()
+{
+    char file[20];
+    strcpy(file,empid);
+    strcat(file,".txt");
+    ofstream f(file);
+    f<< "\n\t\t\tNumber of working employees : "<<empquan<< "\n\t\t\tEmployee Salary : "<<salary<< "\n\t\t\tEmployee Name : "<<post<<"\n\t\t\tEmployee ID : "<<empid<<endl;
+    f.close();
+    ofstream p("Profits.txt");
+    p<<profit;
+    p.close();
+}
+void staff::getstaff()
+{
+    cout<<"\t\t\tEnter Salary : ";
+    cin>>salary;
+    cout<<"\t\t\tEnter Number of Employees : ";
+    cin>>empquan;
+    for(int i=0;i<empquan;i++)
+    {
+        cout<<endl;
+        cout<<"\t\t\tEnter Employee name : ";
+        cin>>post;
+        cout<<"\t\t\tEnter Employee ID : ";
+        cin>>empid;
+        cal();
+        file();
+    }
+}
 
 class Records:public staff, public product
 {
     public:
-        void add()
-        {
-    	    int ch;
-    	    char name[20];
-    	    while(1)
-    	    {
-    		    cout<<endl<<"\t\t\t1. Add Products\n\t\t\t2. Add employees\n\t\t\t3. Exit\n";
-    		    cout<<"\t\t\tEnter choice : ";
-    		    cin>>ch;
-    		    if(ch==1)
-                {
-    		        get();
-    		    }
-    		    else if(ch==2)
-                {
-    			    getstaff();
-    		    }
-    		    else if(ch==3)
-    			    break;
-    		    else
-    			    cout<<"\t\t\tInvaid Option. Try again\n";
-    	    }
-    	}
-        void update_item()
-        {
-	        char id[20];
-	        char pid[20];
-            char c;
-            cout<<"\n\t\t\tProduct ID to modify : ";
-            cin>>id;
-            char file[20];
-            char file2[20];
-            strcpy(file,id);
-            strcat(file,".txt");
-            fstream fout(file, ios::in|ios::out);
-            if(!fout)
-            {
-    	        cout<<"\t\t\tProduct ID not found\n";
-	        }
-	        else 
-            {
-	            cout<<"\t\t\tProduct found! \n";
-                cout<<"\n\t\t\tUpdate product name : ";
-  	            cin>>name;
- 	            cout<<"\t\t\tUpdate Cost Price per product : ";
-  	            cin>>percost;
- 	            cout<<"\t\t\tUpdate Selling Price per product : ";
-  	            cin>>persell;
- 	            cout<<"\t\t\tUpdate total products sold quantity : ";
- 	            cin>>quan;
-                cost=percost*quan;
-                sell=persell*quan;
-	            profit=profit +(sell-cost)*365;
-  	            fout<<"\n\t\t\tProduct name : "<<name<< "\n\t\t\tProduct id: "<<id<<"\n\t\t\tCost per product: " <<percost<<"\n\t\t\tSell per product: "<<persell<<"\n\t\t\tQuantity: "<<quan<<"\n\t\t\tTotal cost: "<<cost<<"\n\t\t\tSell: "<<sell;
-	            fout.close();
-            }
-        }
-        void update_emp()
-        {
-	        char id[20];
-            char c;
-            cout<<"\n\t\t\tEnter employee ID to modify : ";
-            cin>>id;
-            char file[20];
-            strcpy(file,id);
-            strcat(file,".txt");
-            fstream fout(file, ios::in|ios::out);
-            if(!fout)
-            {								
-    	        cout<<"\t\t\tEmployee ID not found\n";
-	        }
-	        cout<<"\t\t\tUpdate Employee Name : ";
-  	        cin>>post;
-  	        fout<< "\n\t\t\tNumber of working employees: "<<empquan<< "\n\t\t\tEmployee Salary: "<<salary<< "\n\t\t\tEmployee Name :"<<post<<"\n\t\t\tEmployee ID: "<<empid;
- 	        fout.close();
-        }
+        void add();
+        void update_item();
+        void update_emp();
 };
+void Records::add()
+{
+    int ch;
+    char name[20];
+    while(1)
+    {
+	    cout<<endl<<"\t\t\t1. Add Products\n\t\t\t2. Add employees\n\t\t\t3. Exit\n";
+	    cout<<"\t\t\tEnter choice : ";
+	    cin>>ch;
+	    if(ch==1)
+        {
+	        get();
+	    }
+	    else if(ch==2)
+        {
+		    getstaff();
+	    }
+	    else if(ch==3)
+		    break;
+	    else
+		    cout<<"\t\t\tInvaid Option. Try again\n";
+    }
+}
+void Records::update_item()
+{
+    char id[20];
+    char pid[20];
+    char c;
+    cout<<"\n\t\t\tProduct ID to modify : ";
+    cin>>id;
+    char file[20];
+    char file2[20];
+    strcpy(file,id);
+    strcat(file,".txt");
+    fstream fout(file, ios::in|ios::out);
+    if(!fout)
+    {
+        cout<<"\t\t\tProduct ID not found\n";
+    }
+    else 
+    {
+        cout<<"\t\t\tProduct found! \n";
+        cout<<"\n\t\t\tUpdate product name : ";
+        cin>>name;
+        cout<<"\t\t\tUpdate Cost Price per product : ";
+        cin>>percost;
+        cout<<"\t\t\tUpdate Selling Price per product : ";
+        cin>>persell;
+        cout<<"\t\t\tUpdate total products sold quantity : ";
+        cin>>quan;
+        cost=percost*quan;
+        sell=persell*quan;
+        profit=profit +(sell-cost)*365;
+        fout<<"\n\t\t\tProduct name : "<<name<< "\n\t\t\tProduct id: "<<id<<"\n\t\t\tCost per product: " <<percost<<"\n\t\t\tSell per product: "<<persell<<"\n\t\t\tQuantity: "<<quan<<"\n\t\t\tTotal cost: "<<cost<<"\n\t\t\tSell: "<<sell;
+        fout.close();
+    }
+}
+void Records::update_emp()
+{
+    char id[20];
+    char c;
+    cout<<"\n\t\t\tEnter employee ID to modify : ";
+    cin>>id;
+    char file[20];
+    strcpy(file,id);
+    strcat(file,".txt");
+    fstream fout(file, ios::in|ios::out);
+    if(!fout)
+    {								
+        cout<<"\t\t\tEmployee ID not found\n";
+    }
+    cout<<"\t\t\tUpdate Employee Name : ";
+    cin>>post;
+    fout<< "\n\t\t\tNumber of working employees: "<<empquan<< "\n\t\t\tEmployee Salary: "<<salary<< "\n\t\t\tEmployee Name :"<<post<<"\n\t\t\tEmployee ID: "<<empid;
+    fout.close();
+}
 
 void start()
 {
