@@ -201,10 +201,13 @@ void Records::update_emp()
     {								
         cout<<"\t\t\tEmployee ID not found\n";
     }
-    cout<<"\t\t\tUpdate Employee Name : ";
-    cin>>post;
-    fout<< "\n\t\t\tNumber of working employees: "<<empquan<< "\n\t\t\tEmployee Salary: "<<salary<< "\n\t\t\tEmployee Name :"<<post<<"\n\t\t\tEmployee ID: "<<empid;
-    fout.close();
+    else
+    {
+        cout<<"\t\t\tUpdate Employee Name : ";
+        cin>>post;
+        fout<< "\n\t\t\tNumber of working employees: "<<empquan<< "\n\t\t\tEmployee Salary: "<<salary<< "\n\t\t\tEmployee Name :"<<post<<"\n\t\t\tEmployee ID: "<<empid;
+        fout.close();
+    }
 }
 
 void start()
