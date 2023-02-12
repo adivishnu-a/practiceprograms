@@ -8,7 +8,7 @@ class Conversion{
 		b = (byte)i;
 		System.out.println("i and b : "+i+" "+b);
 		
-		System.out.println("\nCob=nversion of double to int : ");
+		System.out.println("\nConversion of double to int : ");
 		i = (int)d;
 		System.out.println("d and i : "+d+" "+i);
 		
