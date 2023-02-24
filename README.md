@@ -5,5 +5,5 @@ Programs that I've worked on in the process of learning Programming languages
 
 # Clone the Repository
 ```bash
-git clone https://github.com/adivishnu-a/practiceprograms.git
+git clone https://github.com/adivishnu-a/practiceprograms
 ```
