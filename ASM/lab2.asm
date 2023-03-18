@@ -1,0 +1,30 @@
+DATA SEGMENT
+    ARRAY DB 1,2,3,4,5,6,7,8,9
+    AVG DB ?
+    MSG DB "AVERAGE = $ "
+DATA ENDS
+CODE SEGMENT
+    ASSUME DS:DATA CS:CODE
+START:
+    MOV AX,DATA
+    MOV DS,AX
+    LEA SI,ARRAY
+    LEA DX,MSG                 
+    MOV AH,9
+    INT 21H
+    MOV AX,00
+    MOV BL,9
+    MOV CX,9
+    LOOP1:
+        ADD AL,ARRAY[SI]
+        INC SI
+    LOOP LOOP1
+    DIV BL           
+    ADD AL,30H
+    MOV DL,AL
+    MOV AH,2
+    INT 21H
+    MOV AH,4CH
+    INT 21H
+CODE ENDS
+    END START

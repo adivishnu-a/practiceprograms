@@ -1,0 +1,37 @@
+DATA SEGMENT
+    ARRAY DB 1, 2, 3, 4, 5, 6, 7, 8, 9
+    MAX DB ?
+    MSG DB "LARGEST ELEMENT = $"
+
+DATA ENDS
+
+CODE SEGMENT
+    ASSUME CS:CODE, DS:DATA
+START:
+    MOV AX, DATA
+    MOV DS, AX
+    MOV CX, 9
+    LEA SI, ARRAY
+    MOV AL, ARRAY[SI]
+    MOV MAX, AL
+    LOOP1:
+        MOV AL, ARRAY[SI]
+        CMP AL, MAX
+        JLE NEXT_1
+        MOV MAX, AL
+    NEXT_1:
+    INC SI
+    LOOP LOOP1
+
+    MOV AH, 9
+    LEA DX, MSG
+    INT 21H
+
+    MOV AL, MAX
+    ADD AL, 30H
+    MOV DL, AL
+    MOV AH, 2
+    INT 21H
+
+CODE ENDS
+END START
