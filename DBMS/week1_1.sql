@@ -14,7 +14,7 @@ INSERT INTO Employee (EmployeeID, Name, Job, Mgr, Sal, Commission)
 VALUES (2, 'Bhargav', 'Assistant', 1, 3000000, NULL);
 
 INSERT INTO Employee (EmployeeID, Name, Job, Mgr, Sal, Commission)
-VALUES (3, 'Charan', 'Clerk', 2, 200000, NULL);
+VALUES (3, 'Charan', 'Clerk', 2, 400000, NULL);
 
 ROLLBACK;
 
