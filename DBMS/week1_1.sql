@@ -1,49 +1,46 @@
-CREATE TABLE Employee (
-    EmployeeID INT,
-    Ename VARCHAR(20),
-    Job VARCHAR(20),
-    Mgr INT,
-    Sal DECIMAL(10, 2),
-    Commission DECIMAL(10, 2)
+create table employee(
+empno int,
+ename varchar(20),
+job varchar(20),
+mgr int,
+sal int
 );
 
-INSERT INTO Employee (EmployeeID, Ename, Job, Mgr, Sal, Commission)
-VALUES (1, 'Adi', 'Manager', NULL, 5000000, NULL);
+select * from employee;
 
-INSERT INTO Employee (EmployeeID, Ename, Job, Mgr, Sal, Commission)
-VALUES (2, 'Bhargav', 'Assistant', 1, 3000000, NULL);
+INSERT INTO employee(empno,ename,job,mgr,sal)
+values(1,'Adi','Manager',12,1000000),
+(2,'Bhargav','Clerk',34,200000),
+(3,'Satya','Assistant',56,300000);
 
-INSERT INTO Employee (EmployeeID, Ename, Job, Mgr, Sal, Commission)
-VALUES (3, 'Charan', 'Clerk', 2, 400000, NULL);
+rollback;
 
-ROLLBACK;
+ALTER TABLE employee
+ADD PRIMARY KEY (empno);
 
-ALTER TABLE Employee
-ADD PRIMARY KEY (EmployeeID);
+ALTER TABLE employee
+modify column empno varchar(20) not null,
+modify column ename varchar(20) not null,
+modify column job varchar(20) not null,
+modify column mgr int not null,
+modify column sal int not null;
 
-ALTER TABLE Employee
-MODIFY EmployeeID INT NOT NULL,
-       Ename VARCHAR(20) NOT NULL,
-       Job VARCHAR(20) NOT NULL,
-       Sal DECIMAL(10, 2) NOT NULL;
+INSERT INTO employee(empno,ename,job,mgr,sal)
+values(4,null,'Abdul',78,400000);
 
-INSERT INTO Employee (EmployeeID, Ename, Job, Sal)
-VALUES (4, 'Dhanush', NULL, 250000);
+alter table employee
+add column commission int;
 
-INSERT INTO Employee (EmployeeID, Ename, Job, Sal)
-VALUES (5, 'Fahad', 'Manager', NULL);
+SET SQL_SAFE_UPDATES = 0;
 
-ALTER TABLE Employee
-ADD CommissionNew DECIMAL(10, 2);
+update employee set commission = 1000 where empno =1;
+update employee set commission = 2000 where empno =2;
+update employee set commission = 3000 where empno =3;
+update employee set job = 'Chairman' where empno =1;
+update employee set job = 'President' where empno =2;
+update employee set job = 'Director' where empno =3;
 
-UPDATE Employee
-SET CommissionNew = Commission;
+alter table employee
+rename column empno to empid;
 
-ALTER TABLE Employee
-DROP COLUMN Commission;
-
-ALTER TABLE Employee
-CHANGE COLUMN EmployeeID Empno INT;
-
-DELETE FROM Employee
-WHERE Empno = 1;
+delete from employee where empid=1;

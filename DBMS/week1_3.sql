@@ -1,26 +1,24 @@
-CREATE TABLE Customer (
-    Cust_id NUMBER,
-    Cust_name VARCHAR2(20),
-    Cust_street VARCHAR2(20),
-    Cust_city VARCHAR2(20)
+CREATE TABLE CUSTOMER(
+    Cust_name INT,
+    Cust_street VARCHAR(20),
+    Cust_city VARCHAR(20)
 );
 
-ALTER TABLE Customer
-ADD CONSTRAINT PK_Customer PRIMARY KEY (Cust_id);
+ALTER TABLE CUSTOMER ADD PRIMARY KEY(Cust_city);
 
-INSERT INTO Customer (Cust_id, Cust_name, Cust_street, Cust_city)
-VALUES (1, 'Aditya', '123 Street', 'Bangalore');
-INSERT INTO Customer (Cust_id, Cust_name, Cust_street, Cust_city)
-VALUES (2, 'Bhargav', '456 Street', 'Hyderabad');
+INSERT INTO CUSTOMER(Cust_name,Cust_street,Cust_city) 
+VALUES("1","Maruti Nagar","GNT"),
+("2","Madhapur","HYD"),
+("3","Patamata","VJA");
 
-ALTER TABLE Customer
-ADD Salary DECIMAL(10, 2);
+ALTER TABLE CUSTOMER ADD COLUMN SALARY INT DEFAULT 50000;
+SELECT * FROM CUSTOMER;
 
-ALTER TABLE Customer
-MODIFY Cust_street VARCHAR2(50);
+ALTER TABLE CUSTOMER CHANGE Cust_street Cust_town VARCHAR(20);
+SELECT * FROM CUSTOMER;
 
-ALTER TABLE Customer
-DROP COLUMN Salary;
+ALTER TABLE CUSTOMER DROP COLUMN SALARY;
+SELECT * FROM CUSTOMER;
 
-DELETE FROM Customer
-WHERE Cust_city = 'Hyderabad';
+DELETE FROM CUSTOMER WHERE Cust_city="HYD";
+SELECT * FROM CUSTOMER;
