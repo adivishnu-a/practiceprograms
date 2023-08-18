@@ -1,0 +1,5 @@
+print Hello
+int a = 10
+for a < 20
+do
+print Bye

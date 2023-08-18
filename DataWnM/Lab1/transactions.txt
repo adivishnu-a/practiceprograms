@@ -1,0 +1,5 @@
+T1-A B C D
+T2-B C D
+T3-A B C
+T4-B C E
+T5-A C D

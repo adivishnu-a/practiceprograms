@@ -1,0 +1,20 @@
+Type: Keyword, lexis: print
+Type: Identifier, lexis: Hello
+Type: Keyword, lexis: int
+Type: Identifier, lexis: a
+Type: Operator, lexis: =
+Type: Integer, lexis: 10
+Type: Keyword, lexis: for
+Type: Identifier, lexis: a
+Type: Operator, lexis: <
+Type: Integer, lexis: 20
+Type: Keyword, lexis: do
+Type: Keyword, lexis: print
+Type: Identifier, lexis: Bye
+
+
+
+Symbol Table:
+lexis: Hello
+lexis: a
+lexis: Bye
