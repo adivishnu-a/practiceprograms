@@ -25,10 +25,10 @@ int searchInSymbolTable(char lexeme[]) {
 }
 
 int keywordIdentifierToken(char lexeme[]) {
-    if (strcmp(lexeme, "if") == 0 || strcmp(lexeme, "else") == 0 || strcmp(lexeme, "print") == 0 || strcmp(lexeme, "for") == 0 || strcmp(lexeme, "while") == 0 || strcmp(lexeme, "do") == 0 || strcmp(lexeme, "int") == 0 || strcmp(lexeme, "float") == 0 || strcmp(lexeme, "return") == 0 || strcmp(lexeme, "break") == 0)
-        return 1;
+    if (strcmp(lexeme, "if") || strcmp(lexeme, "else") || strcmp(lexeme, "print") || strcmp(lexeme, "for") || strcmp(lexeme, "while") || strcmp(lexeme, "do") || strcmp(lexeme, "int") || strcmp(lexeme, "float") || strcmp(lexeme, "return") || strcmp(lexeme, "break"))
+        return -1;
     
-    return -1; 
+    return 1; 
 }
 
 bool isInteger(char lexeme[]) {
