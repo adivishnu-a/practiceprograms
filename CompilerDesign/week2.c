@@ -3,56 +3,56 @@
 #include <stdbool.h>
 
 struct TableEntry {
-    char lexis[50];
+    char lexeme[50];
     int token;
 };
 
 struct TableEntry symbolTable[50];
 int size = 0;
 
-void addToSymbolTable(char lexis[]) {
-    strcpy(symbolTable[size].lexis, lexis);
+void addToSymbolTable(char lexeme[]) {
+    strcpy(symbolTable[size].lexeme, lexeme);
     size++;
 }
 
-int searchInSymbolTable(char lexis[]) {
+int searchInSymbolTable(char lexeme[]) {
     for (int i = 0; i < size; i++) {
-        if (strcmp(lexis, symbolTable[i].lexis) == 0) {
+        if (strcmp(lexeme, symbolTable[i].lexeme) == 0) {
             return symbolTable[i].token;
         }
     }
     return -1;
 }
 
-int keywordIdentifierToken(char lexis[]) {
-    if (strcmp(lexis, "if") == 0 || strcmp(lexis, "else") == 0 || strcmp(lexis, "print") == 0 || strcmp(lexis, "for") == 0 || strcmp(lexis, "while") == 0 || strcmp(lexis, "do") == 0 || strcmp(lexis, "int") == 0 || strcmp(lexis, "float") == 0 || strcmp(lexis, "return") == 0 || strcmp(lexis, "break") == 0)
+int keywordIdentifierToken(char lexeme[]) {
+    if (strcmp(lexeme, "if") == 0 || strcmp(lexeme, "else") == 0 || strcmp(lexeme, "print") == 0 || strcmp(lexeme, "for") == 0 || strcmp(lexeme, "while") == 0 || strcmp(lexeme, "do") == 0 || strcmp(lexeme, "int") == 0 || strcmp(lexeme, "float") == 0 || strcmp(lexeme, "return") == 0 || strcmp(lexeme, "break") == 0)
         return 1;
     
     return -1; 
 }
 
-bool isInteger(char lexis[]) {
-    for (int i = 0; lexis[i] != '\0'; i++) {
-        if (lexis[i] < '0' || lexis[i] > '9') {
+bool isInteger(char lexeme[]) {
+    for (int i = 0; lexeme[i] != '\0'; i++) {
+        if (lexeme[i] < '0' || lexeme[i] > '9') {
             return false;
         }
     }
     return true;
 }
 
-bool isOperator(char lexis[]) {
-    for (int i = 0; lexis[i] != '\0'; i++) {
-        if (lexis[i] == '<' || lexis[i] == '>' || lexis[i] == '=' || lexis[i] == '!') {
+bool isOperator(char lexeme[]) {
+    for (int i = 0; lexeme[i] != '\0'; i++) {
+        if (lexeme[i] == '<' || lexeme[i] == '>' || lexeme[i] == '=' || lexeme[i] == '!') {
             return true; 
         }
     }
     return false; 
 }
 
-bool isIdentifier(char lexis[]) {
-    if ((lexis[0] >= 'a' && lexis[0] <= 'z') || (lexis[0] >= 'A' && lexis[0] <= 'Z')) {
-        for (int i = 0; lexis[i] != '\0'; i++) {
-            if (!((lexis[i] >= 'a' && lexis[i] <= 'z') || (lexis[i] >= 'A' && lexis[i] <= 'Z') || (lexis[i] >= '0' && lexis[i] <= '9'))) {
+bool isIdentifier(char lexeme[]) {
+    if ((lexeme[0] >= 'a' && lexeme[0] <= 'z') || (lexeme[0] >= 'A' && lexeme[0] <= 'Z')) {
+        for (int i = 0; lexeme[i] != '\0'; i++) {
+            if (!((lexeme[i] >= 'a' && lexeme[i] <= 'z') || (lexeme[i] >= 'A' && lexeme[i] <= 'Z') || (lexeme[i] >= '0' && lexeme[i] <= '9'))) {
                 return false;
             }
         }
@@ -65,38 +65,38 @@ int main() {
     FILE *inputFile = fopen("input.txt", "r"); 
     FILE *outputFile = fopen("output.txt", "w"); 
     
-    char lexis[50];
+    char lexeme[50];
     
-    while (fscanf(inputFile, "%s", lexis) != EOF) {
-        int token = keywordIdentifierToken(lexis);
+    while (fscanf(inputFile, "%s", lexeme) != EOF) {
+        int token = keywordIdentifierToken(lexeme);
         if (token == -1) {
-            if (isInteger(lexis)) {
+            if (isInteger(lexeme)) {
                 token = 2; 
             } else {
-                if (isOperator(lexis))
+                if (isOperator(lexeme))
                     token = 3;
-                else if (isIdentifier(lexis)) { 
+                else if (isIdentifier(lexeme)) { 
                     token = 4;
-                    if (searchInSymbolTable(lexis) == -1)
-                        addToSymbolTable(lexis);
+                    if (searchInSymbolTable(lexeme) == -1)
+                        addToSymbolTable(lexeme);
                 }
             }
         }
         if (token == 1)
-            fprintf(outputFile, "Type: Keyword, lexis: %s\n", lexis);
+            fprintf(outputFile, "Type: Keyword, lexeme: %s\n", lexeme);
         else if (token == 2)
-            fprintf(outputFile, "Type: Integer, lexis: %s\n", lexis);
+            fprintf(outputFile, "Type: Integer, lexeme: %s\n", lexeme);
         else if (token == 3)
-            fprintf(outputFile, "Type: Operator, lexis: %s\n", lexis);
+            fprintf(outputFile, "Type: Operator, lexeme: %s\n", lexeme);
         else if (token == 4)
-            fprintf(outputFile, "Type: Identifier, lexis: %s\n", lexis);
+            fprintf(outputFile, "Type: Identifier, lexeme: %s\n", lexeme);
         else
-            fprintf(outputFile, "Invalid lexis: %s\n", lexis);
+            fprintf(outputFile, "Invalid lexeme: %s\n", lexeme);
     }
     
     fprintf(outputFile, "\n\n\nSymbol Table:\n");
     for (int i = 0; i < size; i++) {
-        fprintf(outputFile, "lexis: %s\n", symbolTable[i].lexis);
+        fprintf(outputFile, "lexeme: %s\n", symbolTable[i].lexeme);
     }
 
     fclose(inputFile);
