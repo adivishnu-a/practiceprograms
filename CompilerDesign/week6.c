@@ -1,147 +1,136 @@
 #include <stdio.h>
 #include <string.h>
-#define SUCCESS 1
-#define FAILED 0
 
-int E(), Edash(), T(), Tdash(), F();
+char string[50];
+const char *pointer;
 
-const char *cursor;
-char string[64];
+int E() 
+{
+	printf("%-16s E -> T E'\n", pointer);
+	if (T()) 
+	{ 
+		if (Edash()) 
+			return 1;
+		else
+			return 0;
+	} 
+	else
+		return 0;
+}
+
+
+int Edash() 
+{
+	if (*pointer == '+') 
+	{
+		printf("%-16s E' -> + T E'\n", pointer);
+		pointer++;
+		if (T()) 
+		{ 
+			
+			if (Edash()) 
+				return 1;
+			else
+				return 0;
+		} 
+		else
+			return 0;
+	}
+	else 
+	{
+		printf("%-16s E' -> $\n", pointer);
+		return 1;
+	}
+}
+
+
+int T() 
+{
+	printf("%-16s T -> F T'\n", pointer);
+	if (F()) 
+	{ 
+		
+		if (Tdash()) 
+		
+			return 1;
+		else
+			return 0;
+	} 
+	else
+		return 0;
+}
+
+
+int Tdash() 
+{
+	if (*pointer == '*') 
+	{
+		printf("%-16s T' -> * F T'\n", pointer);
+		pointer++;
+		if (F()) 
+		{ 
+			
+			if (Tdash()) 
+				return 1;
+			else
+				return 0;
+		} 
+		else
+			return 0;
+	} 
+	else 
+	{
+		printf("%-16s T' -> $\n", pointer);
+		return 1;
+	}
+}
+
+
+int F() 
+{
+	if (*pointer == '(') 
+	{
+		printf("%-16s F -> ( E )\n", pointer);
+		pointer++;
+		if (E()) 
+		{ 
+			
+			if (*pointer == ')') 
+			{
+				pointer++;
+				return 1;
+			} 
+			else
+				return 0;
+		} 
+		else
+			return 0;
+	} 
+	else if (*pointer == 'i') 
+	{
+		printf("%-16s F -> i\n", pointer);
+		pointer++;
+		return 1;
+	} 
+	else
+		return 0;
+}
 
 int main() 
 {
 	puts("Enter the string");
 	scanf("%s", string); 
-	cursor = string;
+	pointer = string;
 	puts("");
 	puts("Input		 Action");
-	puts("--------------------------------");
-
-	// Call the starting non-terminal E
-	if (E() && *cursor == '\0') 
+	if (E() && *pointer == '\0') 
 	{ 
-		// If parsing is successful and the cursor has reached the end
-		puts("--------------------------------");
-		puts("String is successfully parsed");
+		puts("String parsed");
 		return 0;
 	} 
 	else 
 	{
-		puts("--------------------------------");
-		puts("Error in parsing String");
+		puts("Error occured");
 		return 1;
 	}
-}
-
-// Grammar rule: E -> T E'
-int E() 
-{
-	printf("%-16s E -> T E'\n", cursor);
-	if (T()) 
-	{ // Call non-terminal T
-		if (Edash()) // Call non-terminal E'
-			return SUCCESS;
-		else
-			return FAILED;
-	} 
-	else
-		return FAILED;
-}
-
-// Grammar rule: E' -> + T E' | $
-int Edash() 
-{
-	if (*cursor == '+') 
-	{
-		printf("%-16s E' -> + T E'\n", cursor);
-		cursor++;
-		if (T()) 
-		{ 
-			// Call non-terminal T
-			if (Edash()) // Call non-terminal E'
-				return SUCCESS;
-			else
-				return FAILED;
-		} 
-		else
-			return FAILED;
-	}
-	else 
-	{
-		printf("%-16s E' -> $\n", cursor);
-		return SUCCESS;
-	}
-}
-
-// Grammar rule: T -> F T'
-int T() 
-{
-	printf("%-16s T -> F T'\n", cursor);
-	if (F()) 
-	{ 
-		// Call non-terminal F
-		if (Tdash()) 
-		// Call non-terminal T'
-			return SUCCESS;
-		else
-			return FAILED;
-	} 
-	else
-		return FAILED;
-}
-
-// Grammar rule: T' -> * F T' | $
-int Tdash() 
-{
-	if (*cursor == '*') 
-	{
-		printf("%-16s T' -> * F T'\n", cursor);
-		cursor++;
-		if (F()) 
-		{ 
-			// Call non-terminal F
-			if (Tdash()) // Call non-terminal T'
-				return SUCCESS;
-			else
-				return FAILED;
-		} 
-		else
-			return FAILED;
-	} 
-	else 
-	{
-		printf("%-16s T' -> $\n", cursor);
-		return SUCCESS;
-	}
-}
-
-// Grammar rule: F -> ( E ) | i
-int F() 
-{
-	if (*cursor == '(') 
-	{
-		printf("%-16s F -> ( E )\n", cursor);
-		cursor++;
-		if (E()) 
-		{ 
-			// Call non-terminal E
-			if (*cursor == ')') 
-			{
-				cursor++;
-				return SUCCESS;
-			} 
-			else
-				return FAILED;
-		} 
-		else
-			return FAILED;
-	} 
-	else if (*cursor == 'i') 
-	{
-		printf("%-16s F -> i\n", cursor);
-		cursor++;
-		return SUCCESS;
-	} 
-	else
-		return FAILED;
 }
