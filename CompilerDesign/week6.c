@@ -4,6 +4,12 @@
 char string[50];
 const char *pointer;
 
+int T();
+int E();
+int Edash();
+int Tdash();
+int F();
+
 int E() 
 {
 	printf("%-16s E -> T E'\n", pointer);
@@ -118,7 +124,7 @@ int F()
 
 int main() 
 {
-	puts("Enter the string");
+	printf("Enter the string: ");
 	scanf("%s", string); 
 	pointer = string;
 	puts("");
